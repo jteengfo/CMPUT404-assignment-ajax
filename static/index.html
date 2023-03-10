@@ -65,14 +65,14 @@ world = {};
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
-        lineWidth = 5;
+        lineWidth = 8;
         var x = entity["x"];
         var y = entity["y"];
         //moveTo(x,y);
         fillStyle = entity["colour"];
         // strokeStyle = fillStyle;
         strokeStyle = fillStyle;
-        arc(x, y, (entity["radius"])?entity["radius"]:5, 0, 2.0 * Math.PI, false);  
+        arc(x, y, (entity["radius"])?entity["radius"]:8, 0, 2.0 * Math.PI, false);  
         stroke();                                
     }
 }
@@ -82,7 +82,7 @@ function prepEntity(entity) {
         entity["colour"] = "#283618";
     }
     if (!entity["radius"]) {
-        entity["radius"] = 5;
+        entity["radius"] = 8;
     }
     return entity;
 }
@@ -90,7 +90,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#fefae0";
+	fillStyle = "#212224";
 	fillRect(0,0,W,H);
     }
 
@@ -150,6 +150,7 @@ function addEntity(entity, data) {
     // url = "http://"+host+"/entity/"+ entity; objects = data; callback = function(data) {}
     sendJSONXMLHTTPRequest("http://"+host+"/entity/"+ entity, data, function(data) {
         console.log("sent entity to the server");
+        drawNextFrame();
     });
     
 }
@@ -261,15 +262,15 @@ mouse = (function() {
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'#283618'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#008BF8'});
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'#606c38'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#dc0073'});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'#283618',
+    addEntityWithoutName({'x':x,'y':y,'colour':'#adff02',
                           'radius':5});
 });
 
@@ -278,13 +279,14 @@ function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
     sendJSONXMLHTTPRequest("http://"+host+"/world", {}, function(data) {
         world = data;
+        drawNextFrame();
     });
     drawFrame();
     
 }
 
 // 30 frames per second
-setInterval( update, 1000/30.0);
+setInterval( update, 1000/60.0);
     </script>
 </body>
 </html>

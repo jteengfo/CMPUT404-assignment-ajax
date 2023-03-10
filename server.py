@@ -102,8 +102,8 @@ def get_entity(entity):
 def clear():
     '''Clear the world out!'''
     myWorld.clear()
-    # return redirect("/static/index.html", code=302)
-    return json.dumps(myWorld.clear()) # returns empty dict in index.html?? 
+    return redirect("/static/index.html", code=200)
+    # return json.dumps(myWorld.clear()) # returns empty dict in index.html?? 
 
 if __name__ == "__main__":
     app.run()
