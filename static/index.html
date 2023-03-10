@@ -40,9 +40,8 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                 if (xhr.status==200) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
-                    JSONparsed = objects.parse(xhr.responseText);
-                    console.log(JSONparsed);
-                    callback(JSONparsed);
+                    var JSONParsed = JSON.parse(xhr.responseText);
+                    callback(JSONParsed);
                 }
             } 
             catch(e) {
@@ -53,8 +52,10 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
-    xhr.setRequestHeader('POST', url);
-    xhr.overrideMimeType("application/json");
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-Type', "application/json");
+    xhr.setRequestHeader('Accept', "application/json");
+    xhr.send(JSON.stringify(objects));
 }
 
 
@@ -143,8 +144,12 @@ function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
-    url = "http://127.0.0.1:5000/entity" + data; 
-    sendJSONXMLHTTPRequest(url, world, () => {});
+    // sendJSONXMLHTTPRequest(url, objects, callback)
+    // url = "http://"+host+"/entity/"+ entity; objects = data; callback = function(data) {}
+    sendJSONXMLHTTPRequest("http://"+host+"/entity/"+ entity, data, function(data) {
+        console.log("sent entity to the server");
+    });
+    
 }
 
 var counter = 0;
@@ -268,8 +273,11 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
+    sendJSONXMLHTTPRequest("http://"+host+"/world", {}, function(data) {
+        world = data;
+    });
     drawFrame();
-    sendJSONXMLHTTPRequest()
+    
 }
 
 // 30 frames per second
