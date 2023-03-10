@@ -18,4 +18,6 @@ Student Reference
 Student: James Te Eng Fo
 CCID: jamesang
 
-Color palette: https://coolors.co/palette/606c38-283618-fefae0-dda15e-bc6c25
+Color palette: https://coolors.co/palette/04e762-f5b700-dc0073-008bf8-89fc00
+
+background: #0d060f chose to have a good contrast with bright colors 
