@@ -13,3 +13,9 @@ Contributors / Licensing
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle.
 
 
+Student Reference
+
+Student: James Te Eng Fo
+CCID: jamesang
+
+Color palette: https://coolors.co/palette/606c38-283618-fefae0-dda15e-bc6c25
